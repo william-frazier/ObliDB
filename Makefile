@@ -105,8 +105,7 @@ App_Link_Flags := $(SGX_COMMON_CFLAGS) -L$(SGX_LIBRARY_PATH) -l$(Urts_Library_Na
 ifneq ($(SGX_MODE), HW)
 	App_Link_Flags += -lsgx_uae_service_sim
 else
-	App_Link_Flags += -lsgx_epid
-	App_Link_Flags += -lsgx_quote_ex
+	App_Link_Flags += -lsgx_uae_service
 endif
 
 App_Cpp_Objects := $(App_Cpp_Files:.cpp=.o)
