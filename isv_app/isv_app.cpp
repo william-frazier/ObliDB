@@ -883,7 +883,10 @@ void BDB3(sgx_enclave_id_t enclave_id, int status, int baseline){
 
 }
 
-
+void userupload(sgx_enclave_id_t enclave_id, int status, char* filename) {
+	std::ifstream file(filename);
+	printf("passed\n");
+}
 
 void flightTables(sgx_enclave_id_t enclave_id, int status){
 	//block data size can be shrunk as low as 32 for this test
@@ -3024,7 +3027,7 @@ int main(int argc, char* argv[])
 #define VERIFICATION_INDEX_IS_VALID() (verify_index > 0 && \
                                        verify_index <= verification_samples)
 #define GET_VERIFICATION_ARRAY_INDEX() (verify_index-1)
-
+/*
     if(argc > 1)
     {
 
@@ -3048,7 +3051,7 @@ int main(int argc, char* argv[])
             return -1;
         }
     }
-
+*/
     // Preparation for remote attestation by configuring extended epid group id.
     {
         uint32_t extended_epid_group_id = 0;
@@ -3563,7 +3566,8 @@ int main(int argc, char* argv[])
 
         //real world query tests
         //PICK EXPERIMENT TO RUN HERE
-
+	char* filename = argv[1];
+	userupload(enclave_id, status, filename);
         //nasdaqTables(enclave_id, status); //2048	
         //complaintTables(enclave_id, status); //4096	
         //flightTables(enclave_id, status); //512 (could be less, but we require 512 minimum)	
@@ -3576,7 +3580,7 @@ int main(int argc, char* argv[])
         //BDB3(enclave_id, status, 1);//2048 (baseline)	
         //basicTests(enclave_id, status);//512		
 	//fabTests(enclave_id, status);//512		
-        joinTests(enclave_id, status);//512		
+        //joinTests(enclave_id, status);//512		
         //workloadTests(enclave_id, status);//512	
         //insdelScaling(enclave_id, status);//512	
 
